@@ -17,3 +17,28 @@ FOO BAR FOO
 FOO BAR BAR
 
 FOO FOO BAR
+
+-----
+Deal with directories:
+
+- Use POSIX (dirent.h) -> Directory Operations
+  - Web: https://pubs.opengroup.org/onlinepubs/9699919799/
+
+---
+Deal with files:
+
+- use fgets
+  - https://pubs.opengroup.org/onlinepubs/9699919799/
+
+----
+STEPS:
+
+[X] List current dir;
+[X] Open files separated from other dir;
+[]  Open subdirs recursively;
+[X] Open file;
+[X] Read file;
+[X] Read each line from file
+[]  Count the line number
+[]  Read each word on file
+[] 
