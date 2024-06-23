@@ -1,23 +1,9 @@
-start
+Pointers:
 
-other commit
+-> malloc retorna por default um pointer void (void *). Type cast quando preciso reservar memória para
+   um tipo custom. (TypeName *) malloc(sizeof(TypeName))
 
-other
-
-and other
-
-FOO
-
-BAR
-
-FOO BAR
-
-FOO BAR FOO
-
-FOO BAR BAR
-
-FOO FOO BAR
-
+   OBS: C++ esse tipo de conversão explícita não é necessária. C é uma boa prática.
 -----
 Deal with directories:
 
