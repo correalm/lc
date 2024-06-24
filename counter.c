@@ -14,7 +14,9 @@ int is_dir(struct stat *st) {
 
 int readfile(FILE *file) {
   char *line;
+  char *token;
   int line_max;
+  int counter = 0;
 
   if (LINE_MAX >= 16384) {
     line_max = 16384;
@@ -28,13 +30,18 @@ int readfile(FILE *file) {
   if (line == NULL) return -1;
 
   while (fgets(line, line_max + 1, file) != NULL) {
-    printf("Current Line is: %s\n", line);
-    printf("READ LINE...\n");
+    counter++;
+
+    // token = strtok(line, " ");
+    // printf("Current Line is: %s\n", line);
+    // printf("Current token is: %s\n", token);
+
+    // printf("READ LINE...\n");
   }
 
   free(line);
 
-  return 0;
+  return counter;
 }
 
 FILE * openfile(char *path) {
@@ -55,8 +62,6 @@ int main() {
     perror("Cannot open .");
   }
 
-
-
   while ((dp = readdir(dir)) != NULL) {
     if (strcmp(dp->d_name, ".") == 0 || strcmp(dp->d_name, "..") == 0) {
       continue;
@@ -73,7 +78,9 @@ int main() {
     FILE *file = openfile(full_path);
 
     printf("PATH IS: %s\n", full_path);
-    readfile(file);
+    int total_lines = readfile(file);
+
+    printf("TOTAL LINES ON FILES IS: %i\n", total_lines);
 
     fclose(file);
 
