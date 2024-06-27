@@ -10,11 +10,34 @@ Deal with directories:
 - Use POSIX (dirent.h) -> Directory Operations
   - Web: https://pubs.opengroup.org/onlinepubs/9699919799/
 
+- scandir (can be useful): http://www.map.uefs.br/dirent.html#scandir
 ---
 Deal with files:
 
 - use fgets
   - https://pubs.opengroup.org/onlinepubs/9699919799/
+
+----
+
+need find a way to deal with custom paths. How build the string to them?
+extract the function to be able to do recusrion. Need more study on this things...
+extract the funtcion to open and read file (the read_flie function returns the amount of lines?! fuck, this is wrong)
+see a better way to deal with cli arguments
+  - how accept -X args?
+  - deal with file extensions
+
+see memory with more details
+  - pointers
+  - references
+  - pass pointer or reference?
+  - how i now the size of variables like "path" and "full_path"?
+
+see error treatment with more details
+  - what to do when an error occur?
+  - how ensure memory safe?
+
+BIG QUESTION: is this litte program memory safe?
+
 
 ----
 STEPS:
@@ -25,6 +48,6 @@ STEPS:
 [X] Open file;
 [X] Read file;
 [X] Read each line from file
-[]  Count the line number
+[X]  Count the line number
 []  Read each word on file
 [] 
