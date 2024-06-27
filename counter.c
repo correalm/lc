@@ -1,4 +1,5 @@
 #include <limits.h>
+#include <linux/limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,16 +14,18 @@ int is_dir(struct stat *st) {
 }
 
 int readfile(FILE *file) {
+  const int MAX_LINE_LENGHT = 16384;
+
   char *line;
   char *token;
   int line_max;
   int counter = 0;
 
-  if (LINE_MAX >= 16384) {
+  if (LINE_MAX >= MAX_LINE_LENGHT) {
     line_max = 16384;
   } else {
     long limit = sysconf(_SC_LINE_MAX);
-    line_max = (limit < 0 || limit > 16384) ? 16384 : (int) limit;
+    line_max = (limit < 0 || limit > MAX_LINE_LENGHT) ? MAX_LINE_LENGHT : (int) limit;
   }
 
   line = malloc(line_max + 1);
@@ -31,12 +34,6 @@ int readfile(FILE *file) {
 
   while (fgets(line, line_max + 1, file) != NULL) {
     counter++;
-
-    // token = strtok(line, " ");
-    // printf("Current Line is: %s\n", line);
-    // printf("Current token is: %s\n", token);
-
-    // printf("READ LINE...\n");
   }
 
   free(line);
@@ -47,19 +44,32 @@ int readfile(FILE *file) {
 FILE * openfile(char *path) {
   FILE *file;
 
-  if ((file = fopen(path, "r")) == NULL) perror("cant open file");
+  if ((file = fopen(path, "r")) == NULL) {
+    perror("cant open file\n");
+    printf("ERROR: path[%s]\n", path);
+  }
 
   return file;
 }
 
-int main() {
+int main(int argc, char *argv[]) {
   DIR *dir;
   struct dirent *dp;
   struct stat st;
   char full_path[PATH_MAX];
 
-  if ((dir = opendir(".")) == NULL) {
-    perror("Cannot open .");
+  char path[PATH_MAX] = ".";
+
+  if (argv[1]) {
+    strncpy(path, argv[1], sizeof(path) - 1);
+  }
+
+  printf("Using the path: %s\n", path);
+
+  int number_of_lines = 0;
+
+  if ((dir = opendir(path)) == NULL) {
+    perror("Cannot open the current path\n");
   }
 
   while ((dp = readdir(dir)) != NULL) {
@@ -67,7 +77,7 @@ int main() {
       continue;
     }
 
-    snprintf(full_path, sizeof(full_path), "%s/%s",".", dp->d_name);
+    snprintf(full_path, sizeof(full_path), "%s/%s", path, dp->d_name);
     stat(full_path, &st);
 
     if (is_dir(&st)) {
@@ -77,23 +87,16 @@ int main() {
 
     FILE *file = openfile(full_path);
 
-    printf("PATH IS: %s\n", full_path);
     int total_lines = readfile(file);
-
-    printf("TOTAL LINES ON FILES IS: %i\n", total_lines);
+    number_of_lines += total_lines;
 
     fclose(file);
-
-
-    // printf("dp is: %s\n", dp->d_name);
-
-    // if (S_ISDIR(st.st_mode)) {
-    //   opendir("./%s", dp->d_name);
-    //   printf("%s is a directory\n", dp->d_name);
-    // }
   }
 
   closedir(dir);
+
+  printf("-------------------------------------------------\n");
+  printf("The total number of lines is: %d\n", number_of_lines);
 
   return 0;
 }
