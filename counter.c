@@ -85,6 +85,11 @@ int main(int argc, char *argv[]) {
       continue;
     }
 
+    if (st.st_mode & S_IXUSR) {
+      printf("This file is an executable [%s]. Next.\n", full_path);
+      continue;
+    }
+
     FILE *file = openfile(full_path);
 
     int total_lines = readfile(file);
