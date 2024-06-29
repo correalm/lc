@@ -13,7 +13,7 @@ int is_dir(struct stat *st) {
   return 0;
 }
 
-int readfile(FILE *file) {
+int count_lines_on_file(FILE *file) {
   const int MAX_LINE_LENGHT = 16384;
 
   char *line;
@@ -83,9 +83,7 @@ int explorer(char *path) {
     }
 
     FILE *file = openfile(full_path);
-
-    int total_lines = readfile(file);
-    number_of_lines += total_lines;
+    number_of_lines += count_lines_on_file(file);
 
     fclose(file);
   }
