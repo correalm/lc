@@ -56,9 +56,9 @@ int main(int argc, char *argv[]) {
   DIR *dir;
   struct dirent *dp;
   struct stat st;
-  char full_path[PATH_MAX];
+  char full_path[(MAX_INPUT * 2) + 1];
 
-  char path[PATH_MAX] = ".";
+  char path[MAX_INPUT] = ".";
 
   if (argv[1]) {
     strncpy(path, argv[1], sizeof(path) - 1);
