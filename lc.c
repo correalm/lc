@@ -13,6 +13,10 @@ int is_dir(struct stat *st) {
   return 0;
 }
 
+_Bool is_git_dir(char *folder_name) {
+  return strcmp(folder_name, ".git") == 0;
+}
+
 int count_lines_on_file(FILE *file) {
   const int MAX_LINE_LENGHT = 16384;
 
@@ -65,7 +69,7 @@ int explorer(char *path) {
   }
 
   while ((dp = readdir(dir)) != NULL) {
-    if (strcmp(dp->d_name, ".") == 0 || strcmp(dp->d_name, "..") == 0) {
+    if (strcmp(dp->d_name, ".") == 0 || strcmp(dp->d_name, "..") == 0 || is_git_dir(dp->d_name)) {
       continue;
     }
 
