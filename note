@@ -29,6 +29,11 @@ full_path tem de ser grande o suficiente para suportar uma entrada do tamanho de
 
 ----
 
+C references
+
+https://code-reference.com/c/stdio.h/snprintf
+---
+
 need find a way to deal with custom paths. How build the string to them?
 extract the function to be able to do recusrion. Need more study on this things...
 extract the funtcion to open and read file (the read_flie function returns the amount of lines?! fuck, this is wrong)
