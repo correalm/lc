@@ -18,6 +18,16 @@ Deal with files:
   - https://pubs.opengroup.org/onlinepubs/9699919799/
 
 ----
+Strings
+
+full_path tem de ser grande o suficiente para suportar uma entrada do tamanho de (path * 2)
+
+  path (valor default = ".") + d_name (current dir name) -> por isso path * 2
+
+- snprintf -> escreve no destino a string formatada pelo formatador.
+    snprintf(dest, size[size of resultant string],  format[formatador], sources)
+
+----
 
 need find a way to deal with custom paths. How build the string to them?
 extract the function to be able to do recusrion. Need more study on this things...
