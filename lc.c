@@ -96,11 +96,6 @@ int explorer(char *path) {
 }
 
 int main(int argc, char *argv[]) {
-  DIR *dir;
-  struct dirent *dp;
-  struct stat st;
-  char full_path[(MAX_INPUT * 2) + 1];
-
   char path[MAX_INPUT] = ".";
 
   if (argv[1]) {
@@ -109,10 +104,8 @@ int main(int argc, char *argv[]) {
 
   printf("Using the path: %s\n", path);
 
-  int number_of_lines = explorer(path);;
-
   printf("-------------------------------------------------\n");
-  printf("The total number of lines is: %d\n", number_of_lines);
+  printf("The total number of lines is: %d\n", explorer(path));
   printf("-------------------------------------------------\n");
 
   return 0;
