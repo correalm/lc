@@ -95,6 +95,12 @@ int explorer(char *path) {
   return number_of_lines;
 }
 
+void print_result(int count) {
+  printf("-------------------------------------------------\n");
+  printf("The total number of lines is: %d\n", count);
+  printf("-------------------------------------------------\n");
+}
+
 int main(int argc, char *argv[]) {
   char path[MAX_INPUT] = ".";
 
@@ -104,9 +110,7 @@ int main(int argc, char *argv[]) {
 
   printf("Using the path: %s\n", path);
 
-  printf("-------------------------------------------------\n");
-  printf("The total number of lines is: %d\n", explorer(path));
-  printf("-------------------------------------------------\n");
+  print_result(explorer(path));
 
   return 0;
 }
