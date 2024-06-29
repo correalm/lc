@@ -59,7 +59,7 @@ STEPS:
 
 [X] List current dir;
 [X] Open files separated from other dir;
-[]  Open subdirs recursively;
+[X]  Open subdirs recursively;
 [X] Open file;
 [X] Read file;
 [X] Read each line from file
