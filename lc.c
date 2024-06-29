@@ -52,20 +52,12 @@ FILE * openfile(char *path) {
   return file;
 }
 
-int main(int argc, char *argv[]) {
+int explorer(char *path) {
   DIR *dir;
   struct dirent *dp;
   struct stat st;
-  char full_path[(MAX_INPUT * 2) + 1];
 
-  char path[MAX_INPUT] = ".";
-
-  if (argv[1]) {
-    strncpy(path, argv[1], sizeof(path) - 1);
-  }
-
-  printf("Using the path: %s\n", path);
-
+  char full_path[sizeof(path) + MAX_INPUT + 1];
   int number_of_lines = 0;
 
   if ((dir = opendir(path)) == NULL) {
@@ -81,12 +73,12 @@ int main(int argc, char *argv[]) {
     stat(full_path, &st);
 
     if (is_dir(&st)) {
-      printf("Maybe recursive explorer? (%s)\n", full_path);
+      number_of_lines += explorer(full_path);
       continue;
     }
 
     if (st.st_mode & S_IXUSR) {
-      printf("This file is an executable [%s]. Next.\n", full_path);
+      printf("This file is an executable [%s]. Next.\n", path);
       continue;
     }
 
@@ -100,8 +92,28 @@ int main(int argc, char *argv[]) {
 
   closedir(dir);
 
+  return number_of_lines;
+}
+
+int main(int argc, char *argv[]) {
+  DIR *dir;
+  struct dirent *dp;
+  struct stat st;
+  char full_path[(MAX_INPUT * 2) + 1];
+
+  char path[MAX_INPUT] = ".";
+
+  if (argv[1]) {
+    strncpy(path, argv[1], sizeof(path) - 1);
+  }
+
+  printf("Using the path: %s\n", path);
+
+  int number_of_lines = explorer(path);;
+
   printf("-------------------------------------------------\n");
   printf("The total number of lines is: %d\n", number_of_lines);
+  printf("-------------------------------------------------\n");
 
   return 0;
 }
