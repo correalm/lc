@@ -9,6 +9,10 @@
 gcc -c explorer.c -o explorer.o
 ```
 
+```bash
+gcc -c lc.c -o lc.o
+```
+
 ### build the programm
 
 ```bash
